@@ -1,19 +1,21 @@
 package btx.prog.one.miniproject.hospital;
 
+import java.security.Timestamp;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Date;
 
 
 public abstract class Event {
 
-    private LocalDate timestamp;
+    private String  timestamp;
 
     public Event(){
-        this.timestamp = LocalDate.now();
+        this.timestamp = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS").format(new Date(System.currentTimeMillis()));
     }
 
     @Override
     public String toString() {
-        return "'Type: " + this.getClass().getSimpleName()+
-                ", Timestamp: " + timestamp+"'";
+        return ""+timestamp;
     }
 }

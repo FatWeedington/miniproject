@@ -1,7 +1,5 @@
 package btx.prog.one.miniproject.hospital;
 
-import org.w3c.dom.events.EventException;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,9 +7,7 @@ public class Patient {
 
     private String surname;
     private String lastname;
-
     private List<Event> event = new ArrayList<>();
-
     private Station station;
     private Bed bed;
 
@@ -22,69 +18,108 @@ public class Patient {
     }
 
     public void setBed(Bed bed){
+        if (this.bed == null)
         this.bed = bed;
+        this.bed.setPatient(this);
+    }
+
+    public void changeBed(Bed bed){
+        if (!(this.bed == bed)) {
+            this.bed.removepatient();
+            this.bed = bed;
+            this.bed.setPatient(this);
+        }
     }
 
     public String getSurname() {
         return surname;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
     public String getLastname() {
         return lastname;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
-    public String getLastEvent() {
-        return this.event.get(event.size() -1 ).getClass().getSimpleName();
-    }
-
-    public void setEvent(List<Event> event) {
-        this.event = event;
-    }
-
-    public Station getStation() {
-        return station;
-    }
-
-    public void setStation(Station station) {
-        this.station = station;
+    public Event getLastEvent() {
+        return this.event.get(event.size() -1);
     }
 
     public Bed getBed() {
         return bed;
     }
 
-    public void dischargeBed(){
-        this.bed.setPatient(null);
+    public void setStation(Station station) {
+        if (this.station == null) {
+            this.station = station;
+            this.station.addPatient(this);
+        }
+    }
+
+    public void changeStation(Station station){
+        if (!(this.station == station)) {
+        this.station.removePatient(this);
+        this.station = station;
+        this.station.addPatient(this);
+        }
+    }
+
+    public void leaveStation(){
+        if (!(this.station == null))
+        this.station.removePatient(this);
+        this.station = null;
+    }
+
+    public Station getStation() {
+        return this.station;
+    }
+
+    public void leavebedBed(){
+        if (!(this.bed == null))
+        this.bed.removepatient();
         this.bed = null;
     }
 
     public void discharge(){
-        if (this.event.get(event.size() -1).getClass().getSimpleName().equals("Entry"))
+        if (this.getLastEvent() instanceof Entry)
         this.event.add(new Discharge());
-        else throw new EventException((short) 1,"Patient is already discharged");
+        this.leaveStation();
+        this.leavebedBed();
     }
 
     public void reEntry(){
-        if (this.event.get(event.size() -1).getClass().getSimpleName().equals("Discharge"))
-            this.event.add(new Entry());
-        else throw new EventException((short) 1,"Patient is already in Treatment");
+        if ((this.getLastEvent() instanceof Discharge)){
+            this.event.add(new Entry());}
     }
 
     @Override
     public String toString() {
-        return                "surname='" + surname + '\'' +
-                ", lastname= '" + lastname + '\'' +
-                ", event= " + event.get(event.size()-1) +
-                ", station=" + station +
-                ", bed=" + bed;
+        String output = "Surname: " + this.surname + ", " + "Lastname: " +
+                this.lastname + ", " + "Status: ";
+
+        if ((this.getLastEvent() instanceof Entry)){
+            output += "in treatment, ";
+
+        output += "Last Status Change: "+ this.getLastEvent()+", Station: ";
+
+
+        if (this.station == null){
+            output += "not currently assigned, ";
+        }
+        else{output += this.getStation().getName() + ", ";}
+
+        output += "Bed Number: ";
+
+        if (this.bed == null){
+            output += "ambulant";
+        }
+        else{output += this.getBed().getNumber();}
+
+        }
+        else {output += "discharged, " +
+                "Last Status Change: "+ this.getLastEvent();
+        }
+
+        return output;
+
     }
 
 }
