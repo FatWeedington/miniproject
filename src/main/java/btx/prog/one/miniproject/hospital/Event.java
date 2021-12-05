@@ -8,10 +8,16 @@ import java.util.Date;
 
 public abstract class Event {
 
-    private String  timestamp;
+    private String timestamp;
+    private String description;
 
-    public Event(){
+    public Event(String description){
+        this.description = description;
         this.timestamp = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS").format(new Date(System.currentTimeMillis()));
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     @Override

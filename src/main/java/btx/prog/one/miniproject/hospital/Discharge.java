@@ -2,7 +2,7 @@ package btx.prog.one.miniproject.hospital;
 
 public class Discharge extends Event{
 
-    public Discharge(){
-        super();
+    public Discharge(String description){
+        super(description);
     }
 }

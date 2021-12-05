@@ -20,17 +20,17 @@ public class PatientTest {
 
     @Test
     public void dischargeTest() {
-        assertEquals(new Entry().getClass(), test.getLastEvent().getClass());
-        test.discharge();
-        assertThrows(EventException.class, () -> test.discharge());
+        assertEquals(Entry.class, test.getLastEvent().getClass());
+        test.discharge("patient Left");
+        assertThrows(EventException.class, () -> test.discharge(""));
     }
 
     @Test
     public void ReEntryTest(){
-        test.discharge();
-        assertEquals(new Discharge().getClass(),test.getLastEvent().getClass());
-        test.reEntry();
-        assertEquals(new Entry().getClass(),test.getLastEvent().getClass());
+        test.discharge("patient Left");
+        assertEquals(Discharge.class,test.getLastEvent().getClass());
+        test.reEntry("patient came again");
+        assertEquals(Entry.class,test.getLastEvent().getClass());
 }
 
     public static void main(String[] args) {
@@ -43,7 +43,7 @@ public class PatientTest {
         System.out.println(test);
         test.setStation(Station.EMERGENCY);
         System.out.println(test);
-        test.discharge();
+        test.discharge("succesfully treated");
         System.out.println(test);
     }
 }

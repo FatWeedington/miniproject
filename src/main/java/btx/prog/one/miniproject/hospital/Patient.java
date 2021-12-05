@@ -14,7 +14,7 @@ public class Patient {
     public Patient(String surname,String lastname){
         this.surname = surname;
         this.lastname = lastname;
-        this.event.add(new Entry());
+        this.event.add(new Entry("First Entry"));
     }
 
     public void setBed(Bed bed){
@@ -78,16 +78,16 @@ public class Patient {
         this.bed = null;
     }
 
-    public void discharge(){
+    public void discharge(String description){
         if (this.getLastEvent() instanceof Entry)
-        this.event.add(new Discharge());
+        this.event.add(new Discharge(description));
         this.leaveStation();
         this.leavebedBed();
     }
 
-    public void reEntry(){
+    public void reEntry(String description){
         if ((this.getLastEvent() instanceof Discharge)){
-            this.event.add(new Entry());}
+            this.event.add(new Entry(description));}
     }
 
     @Override
@@ -96,25 +96,24 @@ public class Patient {
                 this.lastname + ", " + "Status: ";
 
         if ((this.getLastEvent() instanceof Entry)){
-            output += "in treatment, ";
+            output += "in treatment, " + "reason: " + this.getLastEvent().getDescription() +", ";
 
         output += "Last Status Change: "+ this.getLastEvent()+", Station: ";
-
 
         if (this.station == null){
             output += "not currently assigned, ";
         }
         else{output += this.getStation().getName() + ", ";}
 
-        output += "Bed Number: ";
 
         if (this.bed == null){
-            output += "ambulant";
+            output += "Ambulant";
         }
-        else{output += this.getBed().getNumber();}
+
+        else{output += "Bed Number: "+this.getBed().getNumber();}
 
         }
-        else {output += "discharged, " +
+        else {output += "discharged, " +"reason: " + this.getLastEvent().getDescription() +", "+
                 "Last Status Change: "+ this.getLastEvent();
         }
 
