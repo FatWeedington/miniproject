@@ -1,4 +1,4 @@
-package btx.prog.one.miniproject.hospital;
+package btx.prog.one.miniproject.hospital.domain;
 
 public class Discharge extends Event{
 

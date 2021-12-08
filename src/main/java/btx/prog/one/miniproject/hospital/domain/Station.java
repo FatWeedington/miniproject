@@ -1,4 +1,4 @@
-package btx.prog.one.miniproject.hospital;
+package btx.prog.one.miniproject.hospital.domain;
 
 import java.util.HashSet;
 import java.util.Set;

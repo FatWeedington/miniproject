@@ -1,7 +1,10 @@
-package btx.prog.one.miniproject.hospital;
+package btx.prog.one.miniproject.hospital.domain;
+
+import org.w3c.dom.events.EventException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Patient {
 
@@ -17,6 +20,14 @@ public class Patient {
         this.event.add(new Entry("First Entry"));
     }
 
+    public String getSurname() {
+        return surname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
     public void setBed(Bed bed){
         if (this.bed == null)
         this.bed = bed;
@@ -25,18 +36,18 @@ public class Patient {
 
     public void changeBed(Bed bed){
         if (!(this.bed == bed)) {
+            if (!(this.bed == null)){
             this.bed.removepatient();
             this.bed = bed;
-            this.bed.setPatient(this);
+            this.bed.setPatient(this);}
+            else throw new EventException((short)4,"Patient has currently no bed assigned, can't change");
         }
     }
 
-    public String getSurname() {
-        return surname;
-    }
-
-    public String getLastname() {
-        return lastname;
+    public void leavebedBed(){
+        if (!(this.bed == null))
+            this.bed.removepatient();
+        this.bed = null;
     }
 
     public Event getLastEvent() {
@@ -54,11 +65,13 @@ public class Patient {
         }
     }
 
-    public void changeStation(Station station){
-        if (!(this.station == station)) {
-        this.station.removePatient(this);
-        this.station = station;
-        this.station.addPatient(this);
+    public void changeStation(Station station) {
+        if (!(this.station == null)) {
+            if (!(this.bed == null)) {
+                this.station.removePatient(this);
+                this.station = station;
+                this.station.addPatient(this);
+            } else throw new EventException((short) 4, "Patient has currently no Station assigned, can't change");
         }
     }
 
@@ -72,11 +85,6 @@ public class Patient {
         return this.station;
     }
 
-    public void leavebedBed(){
-        if (!(this.bed == null))
-        this.bed.removepatient();
-        this.bed = null;
-    }
 
     public void discharge(String description){
         if (this.getLastEvent() instanceof Entry)
@@ -118,7 +126,18 @@ public class Patient {
         }
 
         return output;
-
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Patient)) return false;
+        Patient patient = (Patient) o;
+        return Objects.equals(getSurname(), patient.getSurname()) && Objects.equals(getLastname(), patient.getLastname());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getSurname(), getLastname());
+    }
 }
