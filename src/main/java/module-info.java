@@ -13,8 +13,6 @@ module btx.prog.one.miniproject {
 
     opens btx.prog.one.miniproject to javafx.fxml;
     exports btx.prog.one.miniproject;
-    exports btx.prog.one.miniproject.hospital;
-    opens btx.prog.one.miniproject.hospital to javafx.fxml;
     exports btx.prog.one.miniproject.hospital.domain;
     opens btx.prog.one.miniproject.hospital.domain to javafx.fxml;
 }

@@ -1,18 +1,22 @@
 package btx.prog.one.miniproject.hospital.domain;
 
+import btx.prog.one.miniproject.hospital.repo.BaseEntity;
 import org.w3c.dom.events.EventException;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Patient {
+public class Patient extends BaseEntity {
+
+    public enum Status {NEW, ASSIGNED, DISCHARGED}
 
     private String surname;
     private String lastname;
     private List<Event> event = new ArrayList<>();
     private Station station;
     private Bed bed;
+    private Status status;
 
     public Patient(String surname,String lastname){
         this.surname = surname;
@@ -51,7 +55,9 @@ public class Patient {
         return this.station;
     }
 
+    public Status getStatus() {return status;}
 
+    public void setStatus(Status status) {this.status = status;}
 
     @Override
     public String toString() {
