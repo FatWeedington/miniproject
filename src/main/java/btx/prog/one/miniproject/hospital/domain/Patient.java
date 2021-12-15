@@ -17,7 +17,6 @@ public class Patient {
     public Patient(String surname,String lastname){
         this.surname = surname;
         this.lastname = lastname;
-        this.event.add(new Entry("First Entry"));
     }
 
     public String getSurname() {
@@ -29,74 +28,30 @@ public class Patient {
     }
 
     public void setBed(Bed bed){
-        if (this.bed == null)
         this.bed = bed;
-        this.bed.setPatient(this);
-    }
-
-    public void changeBed(Bed bed){
-        if (!(this.bed == bed)) {
-            if (!(this.bed == null)){
-            this.bed.removepatient();
-            this.bed = bed;
-            this.bed.setPatient(this);}
-            else throw new EventException((short)4,"Patient has currently no bed assigned, can't change");
-        }
-    }
-
-    public void leavebedBed(){
-        if (!(this.bed == null))
-            this.bed.removepatient();
-        this.bed = null;
-    }
-
-    public Event getLastEvent() {
-        return this.event.get(event.size() -1);
     }
 
     public Bed getBed() {
         return bed;
     }
 
+    public void addEvent(Event event){
+        this.event.add(event);
+    }
+
+    public Event getLastEvent() {
+        return this.event.get(event.size() -1);
+    }
+
     public void setStation(Station station) {
-        if (this.station == null) {
             this.station = station;
-            this.station.addPatient(this);
         }
-    }
-
-    public void changeStation(Station station) {
-        if (!(this.station == null)) {
-            if (!(this.bed == null)) {
-                this.station.removePatient(this);
-                this.station = station;
-                this.station.addPatient(this);
-            } else throw new EventException((short) 4, "Patient has currently no Station assigned, can't change");
-        }
-    }
-
-    public void leaveStation(){
-        if (!(this.station == null))
-        this.station.removePatient(this);
-        this.station = null;
-    }
 
     public Station getStation() {
         return this.station;
     }
 
 
-    public void discharge(String description){
-        if (this.getLastEvent() instanceof Entry)
-        this.event.add(new Discharge(description));
-        this.leaveStation();
-        this.leavebedBed();
-    }
-
-    public void reEntry(String description){
-        if ((this.getLastEvent() instanceof Discharge)){
-            this.event.add(new Entry(description));}
-    }
 
     @Override
     public String toString() {

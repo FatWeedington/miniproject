@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PatientRepository {
-    public static List<Patient> REPO = new ArrayList<>();
+    private List<Patient> REPO = new ArrayList<>();
 
     public static void add(Patient patient){
         REPO.add(patient);
