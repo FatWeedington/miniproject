@@ -61,30 +61,8 @@ public class Patient extends BaseEntity {
 
     @Override
     public String toString() {
-        String output = "Surname: " + this.surname + ", " + "Lastname: " +
-                this.lastname + ", " + "Status: ";
-
-        if ((this.getLastEvent() instanceof Entry)){
-            output += "in treatment, " + "reason: " + this.getLastEvent().getDescription() +", ";
-
-        output += "Last Status Change: "+ this.getLastEvent()+", Station: ";
-
-        if (this.station == null){
-            output += "not currently assigned, ";
-        }
-        else{output += this.getStation().getName() + ", ";}
-
-
-        if (this.bed == null){
-            output += "Ambulant";
-        }
-
-        else{output += "Bed Number: "+this.getBed().getNumber();}
-
-        }
-        else {output += "discharged, " +"reason: " + this.getLastEvent().getDescription() +", "+
-                "Last Status Change: "+ this.getLastEvent();
-        }
+        String output =" Surname: " + this.surname + ", " + "Lastname: " +
+                this.lastname;
 
         return output;
     }

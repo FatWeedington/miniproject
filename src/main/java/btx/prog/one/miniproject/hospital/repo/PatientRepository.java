@@ -6,7 +6,7 @@ import java.util.*;
 
 public class PatientRepository implements Repository{
     public static long nextId = 0;
-    public static final PatientRepository INMEMORYREPO = new PatientRepository();
+    public static PatientRepository INMEMORYREPO = new PatientRepository();
 
     private SortedMap<Object,BaseEntity> patientRepo = new TreeMap<>();
 

@@ -10,20 +10,20 @@ public class DispomanagerTest {
         Dispomanager dispomanager = new Dispomanager();
     @Test
     public void registerPatientTest(){
-        dispomanager.registerPatient("Hans","Hobler","ello he there");
-        dispomanager.registerPatient("Quentin","Muster","ello he there");
-        dispomanager.registerPatient("Qrt","Allemann","ello he there");
-        dispomanager.registerPatient("Thomael","Hobler","ello he there");
+        dispomanager.registerPatient("Hans","Hobler");
+        dispomanager.registerPatient("Quentin","Muster");
+        dispomanager.registerPatient("Qrt","Allemann");
+        dispomanager.registerPatient("Thomael","Hobler");
     }
 
 
     public static void main(String[] args) {
         Dispomanager dispomanager = new Dispomanager();
         System.out.println(PatientRepository.INMEMORYREPO.findAll());
-        dispomanager.registerPatient("Hans","Hobler","ello he there");
-        dispomanager.registerPatient("Quentin","Muster","ello he there");
-        dispomanager.registerPatient("Qrt","Allemann","ello he there");
-        dispomanager.registerPatient("Thomael","Hobler","ello he there");
+        dispomanager.registerPatient("Hans","Hobler");
+        dispomanager.registerPatient("Quentin","Muster");
+        dispomanager.registerPatient("Qrt","Allemann");
+        dispomanager.registerPatient("Thomael","Hobler");
         System.out.println(PatientRepository.INMEMORYREPO.findById(3));
     }
 }

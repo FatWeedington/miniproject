@@ -12,7 +12,6 @@ module btx.prog.one.miniproject {
     requires java.xml;
 
     opens btx.prog.one.miniproject to javafx.fxml;
-    exports btx.prog.one.miniproject;
-    exports btx.prog.one.miniproject.hospital.domain;
+    exports btx.prog.one.miniproject.hospital.gui;
     opens btx.prog.one.miniproject.hospital.domain to javafx.fxml;
 }

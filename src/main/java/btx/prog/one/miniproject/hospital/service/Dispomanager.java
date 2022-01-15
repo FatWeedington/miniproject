@@ -10,33 +10,33 @@ import java.util.SortedMap;
 
 public class Dispomanager {
 
-    public void registerPatient(String surname, String lastname,String description){
+    public static void registerPatient(String surname, String lastname){
         Patient p = new Patient(surname,lastname);
-        p.addEvent(new Entry(description));
+        p.addEvent(new Entry("New Entry"));
         p.setStatus(Patient.Status.NEW);
         PatientRepository.INMEMORYREPO.add(p);
     }
 
-    public void setBed(Patient patient,Bed bed){
+    public static void setBed(Patient patient,Bed bed){
         patient.setBed(bed);
         patient.getBed().setPatient(patient);
         PatientRepository.INMEMORYREPO.update(patient);
     }
 
-    public void leavebedBed(Patient patient){
+    public static void leavebedBed(Patient patient){
         patient.getBed().setPatient(null);
         patient.setBed(null);
         PatientRepository.INMEMORYREPO.update(patient);
         }
 
-    public void setStation(Patient patient, Station station) {
+    public static void setStation(Patient patient, Station station) {
         patient.setStation(station);
         station.addPatient(patient);
         patient.setStatus(Patient.Status.ASSIGNED);
         PatientRepository.INMEMORYREPO.update(patient);
     }
 
-    public void discharge(Patient patient,String description){
+    public static void discharge(Patient patient,String description){
         patient.addEvent(new Discharge(description));
         patient.setStation(null);
         patient.setBed(null);
@@ -44,11 +44,11 @@ public class Dispomanager {
         PatientRepository.INMEMORYREPO.update(patient);
     }
 
-    public SortedMap searchAll(){
+    public static SortedMap searchAll(){
         return PatientRepository.INMEMORYREPO.findAll();
     }
 
-    public BaseEntity searchForPatient(long id){
+    public static BaseEntity searchForPatient(long id){
         return PatientRepository.INMEMORYREPO.findById(id);
     }
     }
